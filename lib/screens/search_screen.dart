@@ -44,8 +44,6 @@ class _SearchScreenState extends State<SearchScreen> {
               textColor: Colors.white,
               child: Text('Get weather'),
               onPressed: () async {
-                // var weatherByCity = await cityWeather.getCityWeather(cityName);
-                // Navigator.of(context).pushReplacementNamed(CityScreen.routeName, arguments: weatherByCity);
                 await cityWeather.fetchWeatherByCity(cityName);
                 Navigator.of(context).pushNamed(CityScreenFetch.routeName);
               }),

@@ -34,7 +34,6 @@ class WeatherProvider with ChangeNotifier {
         '$baseUrl?lat=${myLatitude}&lon=${myLongitude}&key=$apiKey&include=minutely';
     print('String url: $url');
     isLoadingLocation = true;
-    // notifyListeners();
     try {
       http.Response response = await http.get(url);
       if (response.statusCode == 200) {
@@ -46,12 +45,6 @@ class WeatherProvider with ChangeNotifier {
         print('Decoded clouds: ${decodedWeatherData['clouds'].runtimeType}');
 
         weatherObject = Weather.fromJson(decodedWeatherData);
-        // weatherObject = Weather(
-        //   city: decodedWeatherData['city_name'],
-        //   temp: decodedWeatherData['temp'].toDouble(),
-        //   clouds: decodedWeatherData['clouds'],
-        //   windDirection: decodedWeatherData['wind_cdir_full'],
-        // );
         print('WeatherObject to Json: ${weatherObject.toJson()}');
       } else {
         print(response.statusCode);
@@ -66,7 +59,6 @@ class WeatherProvider with ChangeNotifier {
   Future<void> fetchWeatherByCity(String cityName) async {
     final String url = '$baseUrl?&city=$cityName&key=$apiKey&include=minutely';
     print('String cityUrl: $url');
-
     isLoadingCity = true;
     try {
       http.Response response = await http.get(url);
@@ -75,12 +67,7 @@ class WeatherProvider with ChangeNotifier {
         print('json: $decodedData');
         final decodedWeatherData = decodedData['data'][0];
         cityWeatherObject = Weather.fromJson(decodedWeatherData);
-        // cityWeatherObject = Weather(
-        //   city: decodedWeatherData['city_name'],
-        //   temp: decodedWeatherData['temp'].toDouble(),
-        //   clouds: decodedWeatherData['clouds'],
-        //   windDirection: decodedWeatherData['wind_cdir_full'],
-        // );
+
       } else {
         print(response.statusCode);
       }
@@ -104,12 +91,6 @@ class WeatherProvider with ChangeNotifier {
         print('json: $decodedData');
         final decodedWeatherData = decodedData['data'][0];
         Weather cityWeatherObject = Weather.fromJson(decodedWeatherData);
-        // Weather cityWeatherObject = Weather(
-        //   city: decodedWeatherData['city_name'],
-        //   temp: decodedWeatherData['temp'],
-        //   clouds: decodedWeatherData['clouds'],
-        //   windDirection: decodedWeatherData['wind_cdir_full'],
-        // );
         return cityWeatherObject;
       } else {
         print(response.statusCode);
